@@ -1,10 +1,12 @@
 package com.njcrain.android.healthtracker;
 
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     long pausedTime;
     Handler handler;
     int imageIdx;
+    InspirationalImage[] images = {(new InspirationalImage(R.drawable.image_1, "This could be you in 500 button clicks")),
+                                   (new InspirationalImage(0, "This could be you in 500 button clicks")),
+                                   (new InspirationalImage(0, "This could be you in 500 button clicks"))};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         handler = new Handler();
         stopWatchRunning = false;
+        imageIdx = 0;
     }
 
     public void incrementExcercise(View v) {
@@ -74,4 +80,15 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(this, 1);
         }
     };
+
+    public  void nextImage(View v) {
+        ImageView image = findViewById(R.id.imageView);
+        TextView caption = findViewById(R.id.captionText);
+        TextView imageLocation = findViewById(R.id.imageLocation);
+
+        image.setImageResource(images[imageIdx].getId());
+        caption.setText(images[imageIdx].getCaption());
+        imageLocation.setText("" + (imageIdx + 1) + "/" + images.length);
+
+    }
 }
