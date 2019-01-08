@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     long elapsedTime;
     long pausedTime;
     Handler handler;
+    int imageIdx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
