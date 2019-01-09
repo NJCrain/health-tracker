@@ -10,15 +10,16 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="incrementExcercise"
+        android:layout_marginBottom="8dp"
+        android:onClick="incrementExercise"
         android:text="Click Me"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.654" />
+        app:layout_constraintVertical_bias="0.958" />
 
     <TextView
         android:id="@+id/textView"
@@ -79,11 +80,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_purple" />
+        app:srcCompat="@drawable/image_1" />
 
     <TextView
         android:id="@+id/captionText"
-        android:layout_width="372dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:text="Caption"
@@ -101,6 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="92dp"
+        android:onClick="previousImage"
         android:text="Prev"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/next"
