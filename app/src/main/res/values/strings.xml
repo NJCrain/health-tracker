@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Health Tracker</string>
+    <string name="clicker_nav">Clicker Exercise</string>
+    <string name="clicker_start">Clicked 0 Times</string>
+    <string name="clicker_button">Click Me!</string>
+    <string name="stopwatch_start">0:00:00.000</string>
+    <string name="stopwatch_nav">Stopwatch</string>
 </resources>
