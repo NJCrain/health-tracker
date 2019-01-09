@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     Handler handler;
     int imageIdx;
     InspirationalImage[] images = {(new InspirationalImage(R.drawable.image_1, "This could be you in 500 button clicks")),
-                                   (new InspirationalImage(R.drawable.image_1, "This will be the second image")),
-                                   (new InspirationalImage(R.drawable.image_1, "This will be the third image"))};
+                                   (new InspirationalImage(R.drawable.buff_seagull, "This Seagull used the app, and look at them now!")),
+                                   (new InspirationalImage(R.drawable.puppy, "Here's a cute puppy for inspiration"))};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
