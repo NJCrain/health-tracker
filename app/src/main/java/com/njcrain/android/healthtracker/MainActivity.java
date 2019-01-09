@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             long hours = runningTime / 3600000;
             long minutes = runningTime / 60000;
             long milliseconds = runningTime % 1000;
-            timer.setText("" + hours + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds) + "." + String.format("%03d", milliseconds));
+            timer.setText(hours + ":" + String.format("%02d", minutes) + ":" + String.format("%02d", seconds) + "." + String.format("%03d", milliseconds));
 
             handler.postDelayed(this, 1);
         }
@@ -105,7 +105,25 @@ public class MainActivity extends AppCompatActivity {
         }
         image.setImageResource(images[imageIdx].getId());
         caption.setText(images[imageIdx].getCaption());
-        imageLocation.setText("" + (imageIdx + 1) + "/" + images.length);
+        imageLocation.setText((imageIdx + 1) + "/" + images.length);
+
+    }
+
+    //Method called when the prev button is clicked. decrements the imageIdx, grabs the corresponding InspirationalImage from images, and updates the imageView and the captionText
+    public  void previousImage(View v) {
+        ImageView image = findViewById(R.id.imageView);
+        TextView caption = findViewById(R.id.captionText);
+        TextView imageLocation = findViewById(R.id.imageLocation);
+
+        //Logic so it can repeat the images instead of going out of bounds
+        if (imageIdx > 0) {
+            imageIdx--;
+        } else {
+            imageIdx = images.length - 1;
+        }
+        image.setImageResource(images[imageIdx].getId());
+        caption.setText(images[imageIdx].getCaption());
+        imageLocation.setText((imageIdx + 1) + "/" + images.length);
 
     }
 }
