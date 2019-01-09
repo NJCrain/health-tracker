@@ -95,6 +95,7 @@
         android:id="@+id/notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="enableNotifications"
         android:text="@string/enable_notifs"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
