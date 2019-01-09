@@ -1,6 +1,5 @@
 package com.njcrain.android.healthtracker;
 
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,20 +17,22 @@ public class MainActivity extends AppCompatActivity {
     Handler handler;
     int imageIdx;
     InspirationalImage[] images = {(new InspirationalImage(R.drawable.image_1, "This could be you in 500 button clicks")),
-                                   (new InspirationalImage(0, "This could be you in 500 button clicks")),
-                                   (new InspirationalImage(0, "This could be you in 500 button clicks"))};
+                                   (new InspirationalImage(R.drawable.image_1, "This will be the second image")),
+                                   (new InspirationalImage(R.drawable.image_1, "This will be the third image"))};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView imgCaption = findViewById(R.id.captionText);
+        imgCaption.setText(images[0].getCaption());
 
         handler = new Handler();
         stopWatchRunning = false;
         imageIdx = 0;
     }
 
-    public void incrementExcercise(View v) {
+    public void incrementExercise(View v) {
         clicks++;
         TextView textView = findViewById(R.id.textView);
         textView.setText("Clicked: " + clicks + " times");
@@ -86,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
         TextView caption = findViewById(R.id.captionText);
         TextView imageLocation = findViewById(R.id.imageLocation);
 
+        if (imageIdx < images.length -1) {
+            imageIdx++;
+        } else {
+            imageIdx = 0;
+        }
         image.setImageResource(images[imageIdx].getId());
         caption.setText(images[imageIdx].getCaption());
         imageLocation.setText("" + (imageIdx + 1) + "/" + images.length);
