@@ -32,15 +32,19 @@ public class MainActivity extends AppCompatActivity {
         imageIdx = 0;
     }
 
+    //Runs when the "click me" button is clicked, increments the total number of clicks and updates the display text
     public void incrementExercise(View v) {
         clicks++;
         TextView textView = findViewById(R.id.textView);
         textView.setText("Clicked: " + clicks + " times");
     }
 
+    //Based on the stopwatch's current status, will either start or stop it
     public void updateStopWatch(View v) {
         Button startStop = findViewById(R.id.button2);
         Button reset = findViewById(R.id.button3);
+        //If the stop watch is not running, set the time for when it was started and start the runnable thread to handle the continual updating of the stopwatch
+        //Also sets the start button to read "stop" and hides the reset button
         if (!stopWatchRunning) {
             stopWatchRunning = true;
             startTime = System.currentTimeMillis();
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             startStop.setText("Stop");
             reset.setVisibility(View.INVISIBLE);
         }
+        //Stops the running of the stopwatch, saves the time it ran for so it can be resumed. Sets the stop buttons text to "start" and shows the reset button
         else if (stopWatchRunning) {
             handler.removeCallbacks(timer);
             startStop.setText("Start");
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Method called when the reset button is clicked. Sets the stopwatch back to 0 internally and resets the text in the app
     public void resetStopWatch(View v) {
         TextView timer = findViewById(R.id.textView2);
         pausedTime = 0;
@@ -66,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
     //The idea for using a Runnable and Handler came from https://www.c-sharpcorner.com/article/creating-stop-watch-android-application-tutorial/
     //The handler takes a Runnable object, which has a run method that runs when the runnable is called. The callback takes a runnable and how often to run it
+
+    //This method calculates the time passed since the stopwatch was started, and adds it to the time it had already run for (if it was previously paused)
+    //It then takes that total time running, and converts it into various values to be used for updating the stopwatch text, and then calls itself again.
     public Runnable timer = new Runnable() {
         @Override
         public void run() {
@@ -82,11 +91,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    //Method called when the next button is clicked. increments the imageIdx, grabs the corresponding InspirationalImage from images, and updates the imageView and the captionText
     public  void nextImage(View v) {
         ImageView image = findViewById(R.id.imageView);
         TextView caption = findViewById(R.id.captionText);
         TextView imageLocation = findViewById(R.id.imageLocation);
 
+        //Logic so it can repeat the images instead of going out of bounds
         if (imageIdx < images.length -1) {
             imageIdx++;
         } else {
