@@ -5,4 +5,5 @@
     <string name="clicker_button">Click Me!</string>
     <string name="stopwatch_start">0:00:00.000</string>
     <string name="stopwatch_nav">Stopwatch</string>
+    <string name="enable_notifs">Enable Notifications</string>
 </resources>

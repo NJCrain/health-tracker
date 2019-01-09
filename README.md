@@ -15,3 +15,7 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 ## 1/9/19
 * Moved Clicker Exercise to its own Activity
 * Moved the Stopwatch to its own Activity
+
+![1/9/19 screenshot 1](screenshots/1-9-19_1.png)
+![1/9/19 screenshot 2](screenshots/1-9-19_2.png)
+![1/9/19 screenshot 3](screenshots/1-9-19_3.png)
