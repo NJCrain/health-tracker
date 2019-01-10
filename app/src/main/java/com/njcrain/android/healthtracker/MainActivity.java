@@ -8,36 +8,24 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "channelId";
-//    private int notificationId = 1;
     private static final long DELAY = 5000;
-
-    int imageIdx;
-    InspirationalImage[] images = {(new InspirationalImage(R.drawable.image_1, "This could be you in 500 button clicks")),
-                                   (new InspirationalImage(R.drawable.buff_seagull, "This Seagull used the app, and look at them now!")),
-                                   (new InspirationalImage(R.drawable.puppy, "Here's a cute puppy for inspiration"))};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView imgCaption = findViewById(R.id.captionText);
-        imgCaption.setText(images[0].getCaption());
 
-        imageIdx = 0;
         createNotificationChannel();
     }
 
@@ -53,47 +41,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(goToStopwatch);
     }
 
-
-
-
-
-
-    //Method called when the next button is clicked. increments the imageIdx, grabs the corresponding InspirationalImage from images, and updates the imageView and the captionText
-    public  void nextImage(View v) {
-        ImageView image = findViewById(R.id.imageView);
-        TextView caption = findViewById(R.id.captionText);
-        TextView imageLocation = findViewById(R.id.imageLocation);
-
-        //Logic so it can repeat the images instead of going out of bounds
-        if (imageIdx < images.length -1) {
-            imageIdx++;
-        } else {
-            imageIdx = 0;
-        }
-        image.setImageResource(images[imageIdx].getId());
-        caption.setText(images[imageIdx].getCaption());
-        imageLocation.setText((imageIdx + 1) + "/" + images.length);
-
+    //Runs when the "Exercise Log" button is clicked, sends the user to the ExerciseLogActivity
+    public void goToExerciseLogActivity(View v) {
+        Intent goToExerciseLog = new Intent(this, ExerciseLogActivity.class);
+        startActivity(goToExerciseLog);
     }
 
-    //Method called when the prev button is clicked. decrements the imageIdx, grabs the corresponding InspirationalImage from images, and updates the imageView and the captionText
-    public  void previousImage(View v) {
-        ImageView image = findViewById(R.id.imageView);
-        TextView caption = findViewById(R.id.captionText);
-        TextView imageLocation = findViewById(R.id.imageLocation);
-
-        //Logic so it can repeat the images instead of going out of bounds
-        if (imageIdx > 0) {
-            imageIdx--;
-        } else {
-            imageIdx = images.length - 1;
-        }
-        image.setImageResource(images[imageIdx].getId());
-        caption.setText(images[imageIdx].getCaption());
-        imageLocation.setText((imageIdx + 1) + "/" + images.length);
-
+    //Runs when the "Exercise Log" button is clicked, sends the user to the ExerciseLogActivity
+    public void goToImageGalleryActivity(View v) {
+        Intent goToImageGallery = new Intent(this, ImageGalleryActivity.class);
+        startActivity(goToImageGallery);
     }
-
 
     //The Intent/Pending Intent comes from https://gist.github.com/BrandonSmith/6679223
     public void enableNotifications(View v) {
