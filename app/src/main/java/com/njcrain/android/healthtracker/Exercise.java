@@ -1,7 +1,5 @@
 package com.njcrain.android.healthtracker;
 
-import java.util.Date;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,7 +8,14 @@ public class Exercise {
     @PrimaryKey
     public int id;
     public String title;
-    public int quantiy;
+    public int quantity;
     public String description;
-    public Date timestamp;
+    public String timestamp;
+
+    public Exercise(String title, int quantity, String description, String timestamp) {
+        this.title = title;
+        this.quantity = quantity;
+        this.description = description;
+        this.timestamp = timestamp;
+    }
 }
