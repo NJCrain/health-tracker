@@ -6,4 +6,5 @@
     <string name="stopwatch_start">0:00:00.000</string>
     <string name="stopwatch_nav">Stopwatch</string>
     <string name="enable_notifs">Enable Notifications</string>
+    <string name="disable_notifs">Disable Notifications</string>
 </resources>
