@@ -25,3 +25,4 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 * Notifications run on a set delay
 * Notifications all have a unique ID when they are enabled
 * Notifications can be disabled
+* Migrated project to AndroidX
