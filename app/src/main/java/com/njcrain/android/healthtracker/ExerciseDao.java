@@ -15,5 +15,5 @@ public interface ExerciseDao {
     Exercise getById(long id);
 
     @Insert
-    void add(Exercise exercise);
+    long add(Exercise exercise);
 }
