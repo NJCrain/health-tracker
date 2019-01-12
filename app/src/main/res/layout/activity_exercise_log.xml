@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <EditText
         android:id="@+id/quantity"
@@ -26,6 +26,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
+        android:hint="Quantity"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:ems="10"
+        android:hint="Exercise"
         android:inputType="textShortMessage"
-        android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -55,8 +56,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
         android:ems="10"
+        android:hint="Description"
         android:inputType="textLongMessage"
-        android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/quantity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -70,7 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:onClick="createExercise"
-        android:text="Button"
+        android:text="Add Exercise"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/quantity"
