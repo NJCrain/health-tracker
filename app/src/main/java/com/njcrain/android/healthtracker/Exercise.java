@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Exercise {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
     public String title;
     public int quantity;
