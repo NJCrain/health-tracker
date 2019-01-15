@@ -9,9 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ExerciseLogActivity extends AppCompatActivity {
@@ -44,6 +42,10 @@ public class ExerciseLogActivity extends AppCompatActivity {
 
         Exercise toAdd = new Exercise(title.getText().toString(),  Integer.parseInt(quantity.getText().toString()), description.getText().toString(), timestamp);
         db.exerciseDao().add(toAdd);
+
+        title.setText("");
+        description.setText("");
+        quantity.setText("");
 
         ArrayAdapter<Exercise> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, db.exerciseDao().getAll());
         ListView listView = findViewById(R.id.exerciseList);
