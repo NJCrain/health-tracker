@@ -17,6 +17,8 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 * Moved the Stopwatch to its own Activity
 * Added ability to send an immediate notification
 
+[Screenshots](screenshots/#1919)
+
 ## 1/10/19
 * Notifications run on a set delay
 * Notifications all have a unique ID when they are enabled
@@ -24,10 +26,14 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 * Migrated project to AndroidX
 * Setup database and ListView on Exercise Log
 
+[Screenshots](screenshots/#11019-and-11119)
+
 ## 1/11/19
 * Updated Exercise Entity to auto-generate IDs
 * Added inputs on Exercise Log so users can add their own
 * Improved Layout of Exercise Log
+
+[Screenshots](screenshots/#11019-and-11119)
 
 ## 1/15/19
 * Added testing for database
