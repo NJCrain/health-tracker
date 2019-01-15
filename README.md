@@ -10,7 +10,7 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 * Added an image carousel that features 3 InspirationalImages
 * Image carousel now features 3 unique images and captions
 
-[Screenshots](screenshots/#1-8-19)
+[Screenshots](screenshots/#1819)
 
 ## 1/9/19
 * Moved Clicker Exercise to its own Activity
