@@ -19,17 +19,32 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ActivityTest {
+public class MainActivityTest {
     @Rule
     public IntentsTestRule<MainActivity> intentsTestRule =
             new IntentsTestRule<>(MainActivity.class);
 
     @Test
-    public void testMain() {
+    public void testClickerExerciseButton() {
         onView(withId(R.id.button)).perform(click());
         intended(hasComponent(FingerClickerActivity.class.getName()));
-//        onView(withId(R.id.button4)).check(matches(withText("Clicker Exercise")));
-//        onView(withId(R.id.button17)).check(matches(withText("Clicker Exercise")));
-//        onView(withId(R.id.button3)).check(matches(withText("Clicker Exercise")));
+    }
+
+    @Test
+    public void testStopwatchButton() {
+        onView(withId(R.id.button4)).perform(click());
+        intended(hasComponent(StopwatchActivity.class.getName()));
+    }
+
+    @Test
+    public void testImageButton() {
+        onView(withId(R.id.button3)).perform(click());
+        intended(hasComponent(ImageGalleryActivity.class.getName()));
+    }
+
+    @Test
+    public void testExerciseLogButton() {
+        onView(withId(R.id.button17)).perform(click());
+        intended(hasComponent(ExerciseLogActivity.class.getName()));
     }
 }
