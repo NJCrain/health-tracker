@@ -38,13 +38,13 @@ public class MainActivityTest {
 
     @Test
     public void testImageButton() {
-        onView(withId(R.id.button3)).perform(click());
+        onView(withId(R.id.button17)).perform(click());
         intended(hasComponent(ImageGalleryActivity.class.getName()));
     }
 
     @Test
     public void testExerciseLogButton() {
-        onView(withId(R.id.button17)).perform(click());
+        onView(withId(R.id.button3)).perform(click());
         intended(hasComponent(ExerciseLogActivity.class.getName()));
     }
 }
