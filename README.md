@@ -37,4 +37,5 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 
 ## 1/15/19
 * Added testing for database
+* Began adding Espresso tests for Activities
 
