@@ -13,7 +13,6 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.runner.AndroidJUnit4;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
