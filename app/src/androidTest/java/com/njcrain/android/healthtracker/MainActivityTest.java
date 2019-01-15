@@ -47,4 +47,21 @@ public class MainActivityTest {
         onView(withId(R.id.button3)).perform(click());
         intended(hasComponent(ExerciseLogActivity.class.getName()));
     }
+
+    @Test
+    public void checkEnableNotificationsButton() {
+        onView(withText("Enable Notifications")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkDisableNotificationsButton() {
+        onView(withText("Disable Notifications")).check(matches(isDisplayed()));
+    }
+
+    //This doesn't work and seems to require a lot more due to the way the notification creating works
+//    @Test
+//    public void testEnableNotificationsButton() {
+//        onView(withId(R.id.notifications)).perform(click());
+//        intended(hasComponent(NotificationPublisher.class.getName()));
+//    }
 }
