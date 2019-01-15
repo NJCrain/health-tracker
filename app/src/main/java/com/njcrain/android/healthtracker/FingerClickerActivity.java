@@ -19,6 +19,6 @@ public class FingerClickerActivity extends AppCompatActivity {
     public void incrementExercise(View v) {
         clicks++;
         TextView textView = findViewById(R.id.textView);
-        textView.setText("Clicked: " + clicks + " times");
+        textView.setText("Clicked " + clicks + " times");
     }
 }
