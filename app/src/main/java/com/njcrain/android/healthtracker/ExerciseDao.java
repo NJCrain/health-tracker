@@ -8,7 +8,7 @@ import androidx.room.Query;
 
 @Dao
 public interface ExerciseDao {
-    @Query("SELECT * FROM exercise")
+    @Query("SELECT * FROM exercise ORDER BY id DESC")
     List<Exercise> getAll();
 
     @Query("SELECT * FROM exercise WHERE id=:id")

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Exercise {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int id;
     public String title;
     public int quantity;
@@ -17,5 +17,9 @@ public class Exercise {
         this.quantity = quantity;
         this.description = description;
         this.timestamp = timestamp;
+    }
+
+    public String toString() {
+        return this.title + ": " + this.description + " - " + this.timestamp;
     }
 }
