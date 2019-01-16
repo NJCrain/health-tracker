@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.njcrain.android.healthtracker.database.AppDatabase;
+
 import java.util.Date;
 
 public class ExerciseLogActivity extends AppCompatActivity {
