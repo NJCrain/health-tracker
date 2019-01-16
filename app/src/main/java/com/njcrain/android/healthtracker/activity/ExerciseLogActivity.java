@@ -1,4 +1,4 @@
-package com.njcrain.android.healthtracker;
+package com.njcrain.android.healthtracker.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.njcrain.android.healthtracker.Exercise;
+import com.njcrain.android.healthtracker.R;
 import com.njcrain.android.healthtracker.database.AppDatabase;
 
 import java.util.Date;

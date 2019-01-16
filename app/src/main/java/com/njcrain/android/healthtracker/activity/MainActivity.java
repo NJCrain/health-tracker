@@ -1,4 +1,4 @@
-package com.njcrain.android.healthtracker;
+package com.njcrain.android.healthtracker.activity;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -13,8 +13,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.njcrain.android.healthtracker.NotificationPublisher;
+import com.njcrain.android.healthtracker.R;
 
 public class MainActivity extends AppCompatActivity {
 

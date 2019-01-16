@@ -2,6 +2,9 @@ package com.njcrain.android.healthtracker;
 
 import android.content.Context;
 
+import com.njcrain.android.healthtracker.database.AppDatabase;
+import com.njcrain.android.healthtracker.database.ExerciseDao;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

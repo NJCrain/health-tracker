@@ -1,5 +1,7 @@
 package com.njcrain.android.healthtracker;
 
+import com.njcrain.android.healthtracker.activity.FingerClickerActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;

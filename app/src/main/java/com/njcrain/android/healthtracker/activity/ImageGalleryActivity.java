@@ -1,4 +1,4 @@
-package com.njcrain.android.healthtracker;
+package com.njcrain.android.healthtracker.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.njcrain.android.healthtracker.InspirationalImage;
+import com.njcrain.android.healthtracker.R;
 
 public class ImageGalleryActivity extends AppCompatActivity {
 

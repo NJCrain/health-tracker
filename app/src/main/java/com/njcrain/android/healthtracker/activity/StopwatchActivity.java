@@ -1,4 +1,4 @@
-package com.njcrain.android.healthtracker;
+package com.njcrain.android.healthtracker.activity;
 
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.njcrain.android.healthtracker.R;
 
 public class StopwatchActivity extends AppCompatActivity {
 
