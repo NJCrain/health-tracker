@@ -39,3 +39,15 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 * Added testing for database
 * Began adding Espresso tests for Activities
 
+## 1/16/19
+* Finished UI tests with Espresso
+* Added section on MainActivity for avatar
+* Users can take a photo with the camera and set that as their avatar
+
+[Screenshots](screenshots/#11619)
+
+## 1/17/19
+* Users can select an image already saved on their phone for an avatar
+[Screenshots](screenshots/#11719)
+
+
