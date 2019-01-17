@@ -5,19 +5,34 @@ import androidx.room.Room;
 
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.njcrain.android.healthtracker.Exercise;
 import com.njcrain.android.healthtracker.R;
 import com.njcrain.android.healthtracker.database.AppDatabase;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ExerciseLogActivity extends AppCompatActivity {
     AppDatabase db;
+    ArrayAdapter<Exercise> adapter;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +45,8 @@ public class ExerciseLogActivity extends AppCompatActivity {
             db.exerciseDao().add(new Exercise("Pushups", 15, "did pushups", "1/9/19 7:00PM"));
         }
 
-        ArrayAdapter<Exercise> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, db.exerciseDao().getAll());
-        ListView listView = findViewById(R.id.exerciseList);
-        listView.setAdapter(adapter);
-
+        listView = findViewById(R.id.exerciseList);
+        getAllExercises();
     }
 
     public void createExercise(View v) {
@@ -51,8 +64,51 @@ public class ExerciseLogActivity extends AppCompatActivity {
         description.setText("");
         quantity.setText("");
 
-        ArrayAdapter<Exercise> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, db.exerciseDao().getAll());
-        ListView listView = findViewById(R.id.exerciseList);
+        getAllExercises();
+    }
+
+    private void getAllExercises() {
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, db.exerciseDao().getAll());
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://nc-health-tracker-backend.herokuapp.com/exercises";
+
+        //Requests a JSON array from the backend server hosted at the above url
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        List<Exercise> exercises = new ArrayList<>();
+                        for (int i = 0; i < response.length(); i ++) {
+                            try {
+                                //Parse each object in the response into an exercise by grabbing each value
+                                Exercise e = new Exercise();
+                                JSONObject jsonExercise =  response.getJSONObject(i);
+                                e.title = jsonExercise.getString("title");
+                                e.quantity = jsonExercise.getInt("quantity");
+                                e.description = jsonExercise.getString("description");
+                                e.timestamp = jsonExercise.getString("timestamp");
+                                exercises.add(e);
+                            } catch (JSONException e) {
+                                //TODO: do something for an exception
+                            }
+                        }
+                        //Add all our exercises from the server into the adapter
+                        adapter.addAll(exercises);
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(jsonArrayRequest);
+        //Set the listview to display all the exercises
         listView.setAdapter(adapter);
     }
 }
