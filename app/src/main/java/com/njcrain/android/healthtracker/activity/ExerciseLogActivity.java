@@ -16,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.njcrain.android.healthtracker.Exercise;
 import com.njcrain.android.healthtracker.R;
@@ -58,13 +59,12 @@ public class ExerciseLogActivity extends AppCompatActivity {
         String timestamp = DateFormat.format("M/d/yy h:mma", now).toString();
 
         Exercise toAdd = new Exercise(title.getText().toString(),  Integer.parseInt(quantity.getText().toString()), description.getText().toString(), timestamp);
+        sendToServer(toAdd);
         db.exerciseDao().add(toAdd);
 
         title.setText("");
         description.setText("");
         quantity.setText("");
-
-        getAllExercises();
     }
 
     private void getAllExercises() {
@@ -74,7 +74,7 @@ public class ExerciseLogActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://nc-health-tracker-backend.herokuapp.com/exercises";
 
-        //Requests a JSON array from the backend server hosted at the above url
+        //Requests a JSON array from the backend server hosted at the above url. This comes from https://developer.android.com/training/volley/simple
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -111,4 +111,29 @@ public class ExerciseLogActivity extends AppCompatActivity {
         //Set the listview to display all the exercises
         listView.setAdapter(adapter);
     }
+
+    private void sendToServer(Exercise e) {
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://nc-health-tracker-backend.herokuapp.com/exercises" +"?title=" + e.title + "&description=" + e.description + "&quantity=" + e.quantity + "&timestamp=" + e.timestamp;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        getAllExercises();
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+        });
+
+        queue.add(stringRequest);
+
+    }
+
 }
