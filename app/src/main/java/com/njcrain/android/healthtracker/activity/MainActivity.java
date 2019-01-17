@@ -8,15 +8,20 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.SystemClock;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,12 +31,18 @@ import android.widget.ImageView;
 import com.njcrain.android.healthtracker.NotificationPublisher;
 import com.njcrain.android.healthtracker.R;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ID = 12;
     private static final String CHANNEL_ID = "channelId";
     private static final long DELAY = 5000;
     private ImageView avatar;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
 
         avatar = findViewById(R.id.avatar);
+
+        preferences = getPreferences(Context.MODE_PRIVATE);
+
+        displayAvatar();
     }
 
     //Runs when the "Clicker Exercise" button is clicked, sends the user to the FingerClickerActivity
@@ -118,11 +133,40 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.cancel(pendingIntent);
     }
 
+    //checks if the user has set their own avatar. If they haven't, display the default. If they have, display that image
+    private void displayAvatar() {
+        SharedPreferences.Editor editor = preferences.edit();
+        if (!preferences.contains("avatarUri")) {
+            avatar.setImageResource(R.drawable.defaultuser);
+        } else {
+            File image = new File(preferences.getString("avatarUri", ""));
+            Bitmap avatarImage = BitmapFactory.decodeFile(image.getAbsolutePath());
+            avatar.setImageBitmap(avatarImage);
+        }
+
+    }
+
+    //---------Everything below this line includes code from https://developer.android.com/training/camera/photobasics and https://developer.android.com/training/permissions/requesting------------
     public void updateAvatar() {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, 1);
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, 1);
+            }
         }
 
     }
@@ -158,9 +202,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            avatar.setImageBitmap(imageBitmap);
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            avatar.setImageBitmap(imageBitmap);
+            displayAvatar();
         }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        preferences.edit().putString("avatarUri", image.getAbsolutePath()).apply();
+        return image;
     }
 }
