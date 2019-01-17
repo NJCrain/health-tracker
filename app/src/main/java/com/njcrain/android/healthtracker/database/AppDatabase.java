@@ -1,4 +1,6 @@
-package com.njcrain.android.healthtracker;
+package com.njcrain.android.healthtracker.database;
+
+import com.njcrain.android.healthtracker.Exercise;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
