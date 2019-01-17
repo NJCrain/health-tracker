@@ -48,6 +48,7 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 
 ## 1/17/19
 * Users can select an image already saved on their phone for an avatar
+
 [Screenshots](screenshots/#11719)
 
 
