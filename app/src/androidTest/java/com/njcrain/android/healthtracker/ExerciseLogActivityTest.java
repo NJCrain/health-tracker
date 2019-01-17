@@ -45,17 +45,18 @@ public class ExerciseLogActivityTest {
     @Test
     public void testAddExercise() {
         Random random = new Random();
+        String randomInt = Integer.toString(random.nextInt(100));
 
         onView(withId(R.id.exerciseTitle)).perform(typeText("Test"));
         onView(withId(R.id.description)).perform(typeText("just testing"));
-        onView(withId(R.id.quantity)).perform(typeText(Integer.toString(random.nextInt())));
+        onView(withId(R.id.quantity)).perform(typeText(randomInt));
         onView(withId(R.id.button5)).perform(click());
 
         Date now = new Date();
         String timestamp = DateFormat.format("M/d/yy h:mma", now).toString();
 
         //Parts of how I setup this specific test came from https://stackoverflow.com/questions/22965839/espresso-click-by-text-in-list-view
-        onData(anything()).inAdapterView(withId(R.id.exerciseList)).atPosition(0).check(matches(withText("Test: just testing - " + timestamp)));
+        onData(anything()).inAdapterView(withId(R.id.exerciseList)).atPosition(0).check(matches(withText("Test: just testing - " + randomInt + "\n" + timestamp)));
 
     }
 }

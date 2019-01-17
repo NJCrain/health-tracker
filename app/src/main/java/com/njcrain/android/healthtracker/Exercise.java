@@ -12,6 +12,8 @@ public class Exercise {
     public String description;
     public String timestamp;
 
+    public Exercise() {}
+
     public Exercise(String title, int quantity, String description, String timestamp) {
         this.title = title;
         this.quantity = quantity;
@@ -19,7 +21,15 @@ public class Exercise {
         this.timestamp = timestamp;
     }
 
+    public Exercise(int id, String title, int quantity, String description, String timestamp) {
+        this.id = id;
+        this.title = title;
+        this.quantity = quantity;
+        this.description = description;
+        this.timestamp = timestamp;
+    }
+
     public String toString() {
-        return this.title + ": " + this.description + " - " + this.timestamp;
+        return this.title + ": " + this.description + " - " + this.quantity + "\n" + this.timestamp;
     }
 }
