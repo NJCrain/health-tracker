@@ -1,6 +1,9 @@
 # Health Tracker
 Health Tracker is an app built to help maintain a healthy lifestyle, and provide some inspiration along the way.
 
+# [Health Tracker Backend](https://github.com/NJCrain/health-tracker-backend)
+To see the repo for the Server that runs the backend for this app, visit the above link.
+
 # Change Log
 ## 1/8/19
 * Added Finger exercise to MainActivity
@@ -48,6 +51,8 @@ Health Tracker is an app built to help maintain a healthy lifestyle, and provide
 
 ## 1/17/19
 * Users can select an image already saved on their phone for an avatar
+* App now gets extra exercise entries from a database
+* When a user adds an exercise, it is saved to the database locally and on the deployed server
 
 [Screenshots](screenshots/#11719)
 
