@@ -29,6 +29,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.njcrain.android.healthtracker.NotificationPublisher;
 import com.njcrain.android.healthtracker.R;
@@ -58,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
         avatar = findViewById(R.id.avatar);
 
-        preferences = getPreferences(Context.MODE_PRIVATE);
+        preferences = getSharedPreferences("userPrefs", 0);
+
+        if (!preferences.contains("username")) {
+            preferences.edit().putString("username", "USERNAME_HERE").apply();
+        }
+
+        TextView username = findViewById(R.id.username_main);
+        username.setText(preferences.getString("username", ""));
 
         displayAvatar();
     }

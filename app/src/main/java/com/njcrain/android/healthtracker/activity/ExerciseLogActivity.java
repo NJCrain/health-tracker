@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat;
 import androidx.room.Room;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,6 +43,7 @@ import java.util.List;
 
 public class ExerciseLogActivity extends AppCompatActivity {
 
+    private SharedPreferences preferences;
     private static final int REQUEST_ID = 13;
     private boolean COARSE_LOCATION_PERMISSION;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -59,7 +63,13 @@ public class ExerciseLogActivity extends AppCompatActivity {
                 AppDatabase.class, "exercise").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         if (db.exerciseDao().getAll().isEmpty()) {
             db.exerciseDao().add(new Exercise("Pushups", 15, "did pushups", "1/9/19 7:00PM"));
+
         }
+
+        preferences = getSharedPreferences("userPrefs", 0);
+
+        TextView username = findViewById(R.id.username_log);
+        username.setText(preferences.getString("username", ""));
 
         listView = findViewById(R.id.exerciseList);
         getAllExercises();
