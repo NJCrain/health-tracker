@@ -9,4 +9,16 @@
     <string name="disable_notifs">Disable Notifications</string>
     <string name="exercise_log">Exercise Log</string>
     <string name="image_button">Images</string>
+    <string name="quantity">Quantity</string>
+    <string name="exercise">Exercise</string>
+    <string name="description">Description</string>
+    <string name="add_exercise">Add Exercise</string>
+    <string name="next">Next</string>
+    <string name="_1_3">1/3</string>
+    <string name="prev">Prev</string>
+    <string name="caption">Caption</string>
+    <string name="upload_new_avatar">Upload New Avatar</string>
+    <string name="select_image">Select Image</string>
+    <string name="start">Start</string>
+    <string name="reset">Reset</string>
 </resources>
