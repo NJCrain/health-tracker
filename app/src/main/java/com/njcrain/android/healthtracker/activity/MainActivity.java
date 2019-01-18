@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private static final long DELAY = 5000;
     private ImageView avatar;
     private SharedPreferences preferences;
-    private static boolean CAMERA_PERMISSION;
-    private static boolean FILES_PERMISSION;
+    private boolean CAMERA_PERMISSION;
+    private boolean FILES_PERMISSION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,7 +238,6 @@ public class MainActivity extends AppCompatActivity {
         }
         //Case of user went to select a photo from saved images. Grab the proper path for that image, then save it in preferences and call displayAvatar().
         if (requestCode == 2 && resultCode == RESULT_OK) {
-            SharedPreferences.Editor editor = preferences.edit();
             Uri imagePath = data.getData();
             String realPath = getRealPathFromURI(this, imagePath);
             preferences.edit().putString("avatarUri", realPath).apply();
