@@ -76,12 +76,13 @@ public class ExerciseLogActivity extends AppCompatActivity {
         Date now = new Date();
         String timestamp = DateFormat.format("M/d/yy h:mma", now).toString();
 
-        if (lastLocation != null) {
-            Log.i("LocationInfo", lastLocation.toString());
-        }
 
 
         Exercise toAdd = new Exercise(title.getText().toString(),  Integer.parseInt(quantity.getText().toString()), description.getText().toString(), timestamp);
+        if (lastLocation != null) {
+            toAdd.latitude = lastLocation.getLatitude();
+            toAdd.longitude = lastLocation.getLongitude();
+        }
 //        sendToServer(toAdd);
         db.exerciseDao().add(toAdd);
 
@@ -200,7 +201,7 @@ public class ExerciseLogActivity extends AppCompatActivity {
                                 // Got last known location. In some rare situations this can be null.
                                 if (location != null) {
                                     // Logic to handle location object
-                                    Log.i("LocationInfo", location.toString());
+//                                    Log.i("LocationInfo", location.toString());
                                     lastLocation = location;
                                 } else {
                                     Log.i("LocationInfo", "No Location returned");
