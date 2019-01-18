@@ -11,6 +11,9 @@ public class Exercise {
     public int quantity;
     public String description;
     public String timestamp;
+    //TODO: Make this just one string for the location via a GeoCoder
+    public double latitude;
+    public double longitude;
 
     public Exercise() {}
 
@@ -21,15 +24,8 @@ public class Exercise {
         this.timestamp = timestamp;
     }
 
-    public Exercise(int id, String title, int quantity, String description, String timestamp) {
-        this.id = id;
-        this.title = title;
-        this.quantity = quantity;
-        this.description = description;
-        this.timestamp = timestamp;
-    }
-
+    //TODO: change this for when a location is an address
     public String toString() {
-        return this.title + ": " + this.description + " - " + this.quantity + "\n" + this.timestamp;
+        return this.title + ": " + this.description + " - " + this.quantity + "\n" + this.timestamp + " at " + this.latitude + ", " + this.longitude;
     }
 }

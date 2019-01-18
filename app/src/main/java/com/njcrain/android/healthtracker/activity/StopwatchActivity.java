@@ -1,5 +1,7 @@
 package com.njcrain.android.healthtracker.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import com.njcrain.android.healthtracker.R;
 
 public class StopwatchActivity extends AppCompatActivity {
 
+    private SharedPreferences preferences;
     boolean stopWatchRunning;
     long startTime;
     long elapsedTime;
@@ -24,6 +27,11 @@ public class StopwatchActivity extends AppCompatActivity {
 
         handler = new Handler();
         stopWatchRunning = false;
+
+        preferences = getSharedPreferences("userPrefs", 0);
+
+        TextView username = findViewById(R.id.username_stopwatch);
+        username.setText(preferences.getString("username", ""));
     }
 
     //Based on the stopwatch's current status, will either start or stop it

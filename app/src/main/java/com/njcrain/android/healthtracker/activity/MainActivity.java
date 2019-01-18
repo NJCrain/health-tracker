@@ -29,6 +29,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.njcrain.android.healthtracker.NotificationPublisher;
 import com.njcrain.android.healthtracker.R;
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private static final long DELAY = 5000;
     private ImageView avatar;
     private SharedPreferences preferences;
-    private static boolean CAMERA_PERMISSION;
-    private static boolean FILES_PERMISSION;
+    private boolean CAMERA_PERMISSION;
+    private boolean FILES_PERMISSION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
         avatar = findViewById(R.id.avatar);
 
-        preferences = getPreferences(Context.MODE_PRIVATE);
+        preferences = getSharedPreferences("userPrefs", 0);
+
+        if (!preferences.contains("username")) {
+            preferences.edit().putString("username", "USERNAME_HERE").apply();
+        }
+
+        TextView username = findViewById(R.id.username_main);
+        username.setText(preferences.getString("username", ""));
 
         displayAvatar();
     }
@@ -238,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
         }
         //Case of user went to select a photo from saved images. Grab the proper path for that image, then save it in preferences and call displayAvatar().
         if (requestCode == 2 && resultCode == RESULT_OK) {
-            SharedPreferences.Editor editor = preferences.edit();
             Uri imagePath = data.getData();
             String realPath = getRealPathFromURI(this, imagePath);
             preferences.edit().putString("avatarUri", realPath).apply();

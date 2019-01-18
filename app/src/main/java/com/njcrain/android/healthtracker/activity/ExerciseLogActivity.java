@@ -1,8 +1,15 @@
 package com.njcrain.android.healthtracker.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.room.Room;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -10,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,6 +26,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.njcrain.android.healthtracker.Exercise;
 import com.njcrain.android.healthtracker.R;
 import com.njcrain.android.healthtracker.database.AppDatabase;
@@ -31,9 +42,17 @@ import java.util.Date;
 import java.util.List;
 
 public class ExerciseLogActivity extends AppCompatActivity {
+
+    private SharedPreferences preferences;
+    private static final int REQUEST_ID = 13;
+    private boolean COARSE_LOCATION_PERMISSION;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private Location lastLocation;
+
     AppDatabase db;
     ArrayAdapter<Exercise> adapter;
     ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +63,22 @@ public class ExerciseLogActivity extends AppCompatActivity {
                 AppDatabase.class, "exercise").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         if (db.exerciseDao().getAll().isEmpty()) {
             db.exerciseDao().add(new Exercise("Pushups", 15, "did pushups", "1/9/19 7:00PM"));
+
         }
+
+        preferences = getSharedPreferences("userPrefs", 0);
+
+        TextView username = findViewById(R.id.username_log);
+        username.setText(preferences.getString("username", ""));
 
         listView = findViewById(R.id.exerciseList);
         getAllExercises();
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getLocation();
     }
 
     public void createExercise(View v) {
+
         EditText title = findViewById(R.id.exerciseTitle);
         EditText description = findViewById(R.id.description);
         EditText quantity = findViewById(R.id.quantity);
@@ -58,7 +86,13 @@ public class ExerciseLogActivity extends AppCompatActivity {
         Date now = new Date();
         String timestamp = DateFormat.format("M/d/yy h:mma", now).toString();
 
+
+
         Exercise toAdd = new Exercise(title.getText().toString(),  Integer.parseInt(quantity.getText().toString()), description.getText().toString(), timestamp);
+        if (lastLocation != null) {
+            toAdd.latitude = lastLocation.getLatitude();
+            toAdd.longitude = lastLocation.getLongitude();
+        }
         sendToServer(toAdd);
         db.exerciseDao().add(toAdd);
 
@@ -66,6 +100,9 @@ public class ExerciseLogActivity extends AppCompatActivity {
         description.setText("");
         quantity.setText("");
     }
+
+
+    //-------------------------INTERNET + DATABASE STUFF--------------------------------------------
 
     private void getAllExercises() {
 
@@ -89,6 +126,8 @@ public class ExerciseLogActivity extends AppCompatActivity {
                                 e.quantity = jsonExercise.getInt("quantity");
                                 e.description = jsonExercise.getString("description");
                                 e.timestamp = jsonExercise.getString("timestamp");
+                                e.longitude = jsonExercise.getDouble("longitude");
+                                e.latitude = jsonExercise.getDouble("latitude");
                                 exercises.add(e);
                             } catch (JSONException e) {
                                 //TODO: do something for an exception
@@ -115,7 +154,7 @@ public class ExerciseLogActivity extends AppCompatActivity {
     private void sendToServer(Exercise e) {
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://nc-health-tracker-backend.herokuapp.com/exercises" +"?title=" + e.title + "&description=" + e.description + "&quantity=" + e.quantity + "&timestamp=" + e.timestamp;
+        String url ="https://nc-health-tracker-backend.herokuapp.com/exercises" +"?title=" + e.title + "&description=" + e.description + "&quantity=" + e.quantity + "&timestamp=" + e.timestamp + "&latitude=" + e.timestamp + "&longitude=" + e.longitude;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -134,6 +173,58 @@ public class ExerciseLogActivity extends AppCompatActivity {
 
         queue.add(stringRequest);
 
+    }
+
+    //-----------------------------------PERMISSIONS STUFF -----------------------------------------
+
+    public void verifyPermissions() {
+        //Check permissions before operating, request them if needed.
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ID);
+        } else {
+            COARSE_LOCATION_PERMISSION = true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_ID: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    COARSE_LOCATION_PERMISSION = true;
+                } else {
+                    COARSE_LOCATION_PERMISSION = false;
+                }
+            }
+
+        }
+    }
+
+    private void getLocation() {
+        verifyPermissions();
+        if (COARSE_LOCATION_PERMISSION) {
+            try {
+                mFusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Got last known location. In some rare situations this can be null.
+                                if (location != null) {
+                                    // Logic to handle location object
+//                                    Log.i("LocationInfo", location.toString());
+                                    lastLocation = location;
+                                } else {
+                                    Log.i("LocationInfo", "No Location returned");
+
+                                }
+                            }
+                        });
+            } catch (SecurityException e) {
+                Log.i("SecurityException", "Something went bad trying to get location", e);
+            }
+        }
     }
 
 }
