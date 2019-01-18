@@ -83,7 +83,7 @@ public class ExerciseLogActivity extends AppCompatActivity {
             toAdd.latitude = lastLocation.getLatitude();
             toAdd.longitude = lastLocation.getLongitude();
         }
-//        sendToServer(toAdd);
+        sendToServer(toAdd);
         db.exerciseDao().add(toAdd);
 
         title.setText("");
@@ -116,6 +116,8 @@ public class ExerciseLogActivity extends AppCompatActivity {
                                 e.quantity = jsonExercise.getInt("quantity");
                                 e.description = jsonExercise.getString("description");
                                 e.timestamp = jsonExercise.getString("timestamp");
+                                e.longitude = jsonExercise.getDouble("longitude");
+                                e.latitude = jsonExercise.getDouble("latitude");
                                 exercises.add(e);
                             } catch (JSONException e) {
                                 //TODO: do something for an exception
@@ -142,7 +144,7 @@ public class ExerciseLogActivity extends AppCompatActivity {
     private void sendToServer(Exercise e) {
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://nc-health-tracker-backend.herokuapp.com/exercises" +"?title=" + e.title + "&description=" + e.description + "&quantity=" + e.quantity + "&timestamp=" + e.timestamp;
+        String url ="https://nc-health-tracker-backend.herokuapp.com/exercises" +"?title=" + e.title + "&description=" + e.description + "&quantity=" + e.quantity + "&timestamp=" + e.timestamp + "&latitude=" + e.timestamp + "&longitude=" + e.longitude;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
