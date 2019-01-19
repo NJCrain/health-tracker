@@ -7,7 +7,7 @@
     tools:context=".activity.ProfileActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/profileAvatar"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
@@ -53,18 +53,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button8" />
 
-    <TextView
+    <EditText
         android:id="@+id/username_Edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:inputType="text"
+        android:text=""
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/profileAvatar" />
 
     <Button
         android:id="@+id/button10"
