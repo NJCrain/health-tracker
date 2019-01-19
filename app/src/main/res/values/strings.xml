@@ -21,4 +21,6 @@
     <string name="select_image">Select Image</string>
     <string name="start">Start</string>
     <string name="reset">Reset</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="save">Save</string>
 </resources>

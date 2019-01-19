@@ -36,7 +36,6 @@ import com.njcrain.android.healthtracker.R;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -156,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
             avatar.setImageBitmap(avatarImage);
         }
 
+    }
+
+    public void viewProfile(View v) {
+        Intent goToProfile = new Intent(this, ProfileActivity.class);
+        startActivity(goToProfile);
     }
 
     //Called from the select image button, starts an intent to let the user pick an image already saved on their phone
