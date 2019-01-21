@@ -15,9 +15,9 @@
 
 # 1/10/19 and 1/11/19
 ![1-10-19 screenshot 1](1-10-19_1.png)
-![1-10-19 screenshot 1](1-10-19_2.png)
-![1-10-19 screenshot 1](1-10-19_3.png)
-![1-10-19 screenshot 1](1-10-19_4.png)
+![1-10-19 screenshot 2](1-10-19_2.png)
+![1-10-19 screenshot 3](1-10-19_3.png)
+![1-10-19 screenshot 4](1-10-19_4.png)
 
 
 #  1/16/19 
@@ -25,3 +25,11 @@
 
 # 1/17/19
 ![1-17-19 screenshot](1-17-19.png)
+
+# 1/18/19
+![1-18-19 screenshot 1](1-18-19_1.png)
+![1-18-19 screenshot 2](1-18-19_2.png)
+![1-18-19 screenshot 3](1-18-19_3.png)
+
+# 1/21/19
+![1-21-19 screenshot](1-21-19.png)

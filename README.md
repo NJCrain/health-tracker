@@ -2,7 +2,7 @@
 Health Tracker is an app built to help maintain a healthy lifestyle, and provide some inspiration along the way.
 
 # [Health Tracker Backend](https://github.com/NJCrain/health-tracker-backend)
-To see the repo for the Server that runs the backend for this app, visit the above link.
+To see the repo for the Server that runs the backend for this app, visit the above link. The server is deployed at https://nc-health-tracker-backend.herokuapp.com
 
 # Change Log
 ## 1/8/19
@@ -56,4 +56,16 @@ To see the repo for the Server that runs the backend for this app, visit the abo
 
 [Screenshots](screenshots/#11719)
 
+## 1/18/19
+* Exercises now include a location (currently via a lat and long)
+* Username displayed on all pages
+* Added profile page for users to edit their profile
+
+[Screenshots](screenshots/#11819)
+
+## 1/21/19
+* Home page now features some stats
+* Added use of fine location for better location accuracy
+
+[Screenshots](screenshots/#12119)
 
