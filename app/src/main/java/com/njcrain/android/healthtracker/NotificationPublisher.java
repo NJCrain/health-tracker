@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
+import com.njcrain.android.healthtracker.activity.MainActivity;
+
 //The use of this class also comes from https://gist.github.com/BrandonSmith/6679223
 public class NotificationPublisher extends BroadcastReceiver {
 //    private int notificationId = 1;
@@ -26,6 +28,6 @@ public class NotificationPublisher extends BroadcastReceiver {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + MainActivity.DELAY, pendingIntent);
     }
 }

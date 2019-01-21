@@ -24,6 +24,24 @@ public class FingerClickerActivity extends AppCompatActivity {
 
         TextView username = findViewById(R.id.username_clicker);
         username.setText(preferences.getString("username", ""));
+
+        clicks = preferences.getInt("clickerScore", 0);
+        TextView text = findViewById(R.id.textView);
+        text.setText("Clicked " + clicks + " times");
+
+    }
+
+    //These two overrides are so the app can consistently update the clicker score on the home screen
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        preferences.edit().putInt("clickerScore", clicks).apply();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        preferences.edit().putInt("clickerScore", clicks).apply();
     }
 
     //Runs when the "click me" button is clicked, increments the total number of clicks and updates the display text
