@@ -31,10 +31,16 @@ public class FingerClickerActivity extends AppCompatActivity {
 
     }
 
+    //These two overrides are so the app can consistently update the clicker score on the home screen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        preferences.edit().putInt("clickerScore", clicks).apply();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
         preferences.edit().putInt("clickerScore", clicks).apply();
     }
 
