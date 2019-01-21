@@ -154,7 +154,7 @@ public class ExerciseLogActivity extends AppCompatActivity {
     private void sendToServer(Exercise e) {
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://nc-health-tracker-backend.herokuapp.com/exercises" +"?title=" + e.title + "&description=" + e.description + "&quantity=" + e.quantity + "&timestamp=" + e.timestamp + "&latitude=" + e.timestamp + "&longitude=" + e.longitude;
+        String url ="https://nc-health-tracker-backend.herokuapp.com/exercises" +"?title=" + e.title + "&description=" + e.description + "&quantity=" + e.quantity + "&timestamp=" + e.timestamp + "&latitude=" + e.latitude + "&longitude=" + e.longitude;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
