@@ -64,6 +64,19 @@ public class MainActivity extends AppCompatActivity {
         displayAvatar();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 1) + 1).apply();
+
+        TextView scoreText = findViewById(R.id.scoreText);
+        TextView visitsText = findViewById(R.id.visitsText);
+
+        scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
+        visitsText.setText("Home Page Visits: " + preferences.getInt("homeVisits", 1));
+    }
+
     //Runs when the "Clicker Exercise" button is clicked, sends the user to the FingerClickerActivity
     public void goToFingerClickerExercise(View v) {
         Intent goToFingerClicker = new Intent(this, FingerClickerActivity.class);
