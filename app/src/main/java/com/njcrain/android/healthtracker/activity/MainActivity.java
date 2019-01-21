@@ -29,7 +29,7 @@ import androidx.core.app.NotificationCompat;
 public class MainActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "channelId";
-    private static final long DELAY = 5000;
+    private static final long DELAY = 7200000;
     private ImageView avatar;
     private SharedPreferences preferences;
 
@@ -46,11 +46,20 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences("userPrefs", 0);
 
         if (!preferences.contains("username")) {
-            preferences.edit().putString("username", "USERNAME_HERE").apply();
+            preferences.edit().putString("username", "username").apply();
+        }
+        if (!preferences.contains("homeVisits")) {
+            preferences.edit().putInt("homeVisits", 1).apply();
+        } else {
+            preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 1) + 1).apply();
         }
 
         TextView username = findViewById(R.id.username_main);
+        TextView scoreText = findViewById(R.id.scoreText);
+        TextView visitsText = findViewById(R.id.visitsText);
         username.setText(preferences.getString("username", ""));
+        scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
+        visitsText.setText("Home Page Visits: " + preferences.getInt("homeVisits", 1));
 
         displayAvatar();
     }

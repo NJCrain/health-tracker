@@ -23,4 +23,7 @@
     <string name="reset">Reset</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="save">Save</string>
+    <string name="clicker_exercise_score">Clicker Exercise Score: 0</string>
+    <string name="home_page_visits">Home Page Visits: 1</string>
+    <string name="username">username</string>
 </resources>
