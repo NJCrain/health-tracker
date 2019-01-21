@@ -46,6 +46,7 @@ public class ExerciseLogActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private static final int REQUEST_ID = 13;
     private boolean COARSE_LOCATION_PERMISSION;
+    private boolean FINE_LOCATION_PERMISSION;
     private FusedLocationProviderClient mFusedLocationClient;
     private Location lastLocation;
 
@@ -179,10 +180,12 @@ public class ExerciseLogActivity extends AppCompatActivity {
 
     public void verifyPermissions() {
         //Check permissions before operating, request them if needed.
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ID);
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
+                (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ID);
         } else {
             COARSE_LOCATION_PERMISSION = true;
+            FINE_LOCATION_PERMISSION = true;
         }
     }
 
@@ -197,6 +200,12 @@ public class ExerciseLogActivity extends AppCompatActivity {
                 } else {
                     COARSE_LOCATION_PERMISSION = false;
                 }
+                if (grantResults.length > 0
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    FINE_LOCATION_PERMISSION = true;
+                } else {
+                    FINE_LOCATION_PERMISSION = false;
+                }
             }
 
         }
@@ -204,7 +213,7 @@ public class ExerciseLogActivity extends AppCompatActivity {
 
     private void getLocation() {
         verifyPermissions();
-        if (COARSE_LOCATION_PERMISSION) {
+        if (COARSE_LOCATION_PERMISSION && FINE_LOCATION_PERMISSION) {
             try {
                 mFusedLocationClient.getLastLocation()
                         .addOnSuccessListener(this, new OnSuccessListener<Location>() {
