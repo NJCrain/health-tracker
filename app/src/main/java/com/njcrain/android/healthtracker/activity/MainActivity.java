@@ -29,7 +29,7 @@ import androidx.core.app.NotificationCompat;
 public class MainActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "channelId";
-    private static final long DELAY = 7200000;
+    public static final long DELAY = 7200000;
     private ImageView avatar;
     private SharedPreferences preferences;
 
