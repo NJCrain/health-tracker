@@ -14,6 +14,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/clicker_exercise_score"
         android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,6 +26,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/home_page_visits"
         android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/scoreText" />
 
@@ -40,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/button12" />
 
     <Button
         android:id="@+id/button4"
@@ -114,6 +116,7 @@
         android:layout_height="96dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars[1]" />
@@ -127,6 +130,7 @@
         android:onClick="viewProfile"
         android:text="@string/edit_profile"
         android:textSize="12sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_main" />
 
@@ -139,7 +143,39 @@
         android:text="@string/username"
         android:textAlignment="center"
         android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatar" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/logout"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/signup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
