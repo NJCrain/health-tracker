@@ -91,6 +91,7 @@
         android:onClick="goToExerciseLogActivity"
         android:text="@string/exercise_log"
         android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/notifications"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -164,6 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="goToLoginActivity"
         android:text="@string/login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

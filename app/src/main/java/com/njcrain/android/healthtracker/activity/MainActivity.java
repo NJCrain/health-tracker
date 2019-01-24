@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,18 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("userPrefs", 0);
 
-        if (!preferences.contains("username")) {
-            preferences.edit().putString("username", "username").apply();
-        }
-        if (!preferences.contains("homeVisits")) {
-            preferences.edit().putInt("homeVisits", 1).apply();
-        } else {
-            preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 1) + 1).apply();
-        }
-
         TextView username = findViewById(R.id.username_main);
         TextView scoreText = findViewById(R.id.scoreText);
         TextView visitsText = findViewById(R.id.visitsText);
+        Button editProfile = findViewById(R.id.button7);
+
+        if (preferences.contains("token")) {
+            username.setVisibility(View.VISIBLE);
+            scoreText.setVisibility(View.VISIBLE);
+            visitsText.setVisibility(View.VISIBLE);
+            editProfile.setVisibility(View.VISIBLE);
+            avatar.setVisibility(View.VISIBLE);
+        }
         username.setText(preferences.getString("username", ""));
         scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
         visitsText.setText("Home Page Visits: " + preferences.getInt("homeVisits", 1));
@@ -99,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
     public void goToImageGalleryActivity(View v) {
         Intent goToImageGallery = new Intent(this, ImageGalleryActivity.class);
         startActivity(goToImageGallery);
+    }
+
+    //Runs when the "Login" button is clicked, sends the user to the ExerciseLogActivity
+    public void goToLoginActivity(View v) {
+        Intent goToLogin = new Intent(this, LoginActivity.class);
+        startActivity(goToLogin);
     }
 
     //The Intent/Pending Intent comes from https://gist.github.com/BrandonSmith/6679223
