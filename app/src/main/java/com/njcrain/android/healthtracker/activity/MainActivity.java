@@ -45,11 +45,14 @@ public class MainActivity extends AppCompatActivity {
         avatar = findViewById(R.id.avatar);
 
         preferences = getSharedPreferences("userPrefs", 0);
+//        preferences.edit().remove("token").apply();
 
         TextView username = findViewById(R.id.username_main);
         TextView scoreText = findViewById(R.id.scoreText);
         TextView visitsText = findViewById(R.id.visitsText);
         Button editProfile = findViewById(R.id.button7);
+        Button login = findViewById(R.id.login);
+        Button signup = findViewById(R.id.signup);
 
         if (preferences.contains("token")) {
             username.setVisibility(View.VISIBLE);
@@ -57,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
             visitsText.setVisibility(View.VISIBLE);
             editProfile.setVisibility(View.VISIBLE);
             avatar.setVisibility(View.VISIBLE);
+            login.setVisibility(View.INVISIBLE);
+            signup.setVisibility(View.INVISIBLE);
+
+
         }
         username.setText(preferences.getString("username", ""));
         scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
