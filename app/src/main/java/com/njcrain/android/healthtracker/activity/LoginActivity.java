@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body = RequestBody.create(mediaType, "grant_type=password&username=john&password=123456&client_id=testjwtclientid&client_secret=XY7kmzoNzl100");
         Request request = new Request.Builder()
-                .url("http://192.168.43.132:8080/oauth/token")
+                .url("https://nc-health-tracker-backend.herokuapp.com/oauth/token")
                 .post(body)
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .build();
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://192.168.43.132:8080/user")
+                .url("https://nc-health-tracker-backend.herokuapp.com/user")
                 .get()
                 .addHeader("Authorization", "Bearer " + preferences.getString("token", ""))
                 .build();
@@ -86,6 +86,8 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("username", jsonObject.getString("username"));
             editor.putString("avatarUri", jsonObject.getString("avatarUri"));
             editor.apply();
+            setResult(RESULT_OK);
+            finish();
         } catch (Exception e) {
             Log.e("ERROR", e.toString());
         }

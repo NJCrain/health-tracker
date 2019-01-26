@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Button editProfile = findViewById(R.id.button7);
         Button login = findViewById(R.id.login);
         Button signup = findViewById(R.id.signup);
+        Button logout = findViewById(R.id.logout);
+        Button exercises = findViewById(R.id.button3);
 
         if (preferences.contains("token")) {
             username.setVisibility(View.VISIBLE);
@@ -62,9 +64,10 @@ public class MainActivity extends AppCompatActivity {
             avatar.setVisibility(View.VISIBLE);
             login.setVisibility(View.INVISIBLE);
             signup.setVisibility(View.INVISIBLE);
-
-
+            logout.setVisibility(View.VISIBLE);
+            exercises.setVisibility(View.VISIBLE);
         }
+
         username.setText(preferences.getString("username", ""));
         scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
         visitsText.setText("Home Page Visits: " + preferences.getInt("homeVisits", 1));
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     //Runs when the "Login" button is clicked, sends the user to the ExerciseLogActivity
     public void goToLoginActivity(View v) {
         Intent goToLogin = new Intent(this, LoginActivity.class);
-        startActivity(goToLogin);
+        startActivityForResult(goToLogin, 13);
     }
 
     //The Intent/Pending Intent comes from https://gist.github.com/BrandonSmith/6679223
@@ -183,6 +186,32 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(goToProfile, 4);
     }
 
+    public void performLogout(View v) {
+        preferences.edit().remove("token").remove("clickerScore").apply();
+
+//        TextView username = findViewById(R.id.username_main);
+//        TextView scoreText = findViewById(R.id.scoreText);
+//        TextView visitsText = findViewById(R.id.visitsText);
+//        Button editProfile = findViewById(R.id.button7);
+//        Button login = findViewById(R.id.login);
+//        Button signup = findViewById(R.id.signup);
+//        Button logout = findViewById(R.id.logout);
+//        Button exercises = findViewById(R.id.button3);
+//
+//        if (preferences.contains("token")) {
+//            username.setVisibility(View.INVISIBLE);
+//            scoreText.setVisibility(View.INVISIBLE);
+//            visitsText.setVisibility(View.INVISIBLE);
+//            editProfile.setVisibility(View.INVISIBLE);
+//            avatar.setVisibility(View.INVISIBLE);
+//            login.setVisibility(View.VISIBLE);
+//            signup.setVisibility(View.VISIBLE);
+//            logout.setVisibility(View.INVISIBLE);
+//            exercises.setVisibility(View.GONE);
+//        }
+        recreate();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Case of user went to select a photo from saved images. Grab the proper path for that image, then save it in preferences and call displayAvatar().
@@ -190,6 +219,9 @@ public class MainActivity extends AppCompatActivity {
             displayAvatar();
             TextView username = findViewById(R.id.username_main);
             username.setText(preferences.getString("username", ""));
+        }
+        if (requestCode == 13 && resultCode == RESULT_OK) {
+            recreate();
         }
     }
 
