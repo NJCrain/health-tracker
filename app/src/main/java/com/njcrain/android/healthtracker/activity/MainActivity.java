@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         avatar = findViewById(R.id.avatar);
 
         preferences = getSharedPreferences("userPrefs", 0);
-//        preferences.edit().remove("token").apply();
 
         TextView username = findViewById(R.id.username_main);
         TextView scoreText = findViewById(R.id.scoreText);
@@ -66,12 +65,12 @@ public class MainActivity extends AppCompatActivity {
             signup.setVisibility(View.INVISIBLE);
             logout.setVisibility(View.VISIBLE);
             exercises.setVisibility(View.VISIBLE);
+        } else {
+            preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 0) + 1).apply();
+            username.setText(preferences.getString("username", ""));
+            scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
+            visitsText.setText("Home Page Visits: " + preferences.getInt("homeVisits", 0));
         }
-
-        username.setText(preferences.getString("username", ""));
-        scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
-        visitsText.setText("Home Page Visits: " + preferences.getInt("homeVisits", 1));
-
         displayAvatar();
     }
 
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 1) + 1).apply();
+        preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 0) + 1).apply();
 
         TextView scoreText = findViewById(R.id.scoreText);
         TextView visitsText = findViewById(R.id.visitsText);
@@ -188,27 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void performLogout(View v) {
         preferences.edit().remove("token").remove("clickerScore").apply();
-
-//        TextView username = findViewById(R.id.username_main);
-//        TextView scoreText = findViewById(R.id.scoreText);
-//        TextView visitsText = findViewById(R.id.visitsText);
-//        Button editProfile = findViewById(R.id.button7);
-//        Button login = findViewById(R.id.login);
-//        Button signup = findViewById(R.id.signup);
-//        Button logout = findViewById(R.id.logout);
-//        Button exercises = findViewById(R.id.button3);
-//
-//        if (preferences.contains("token")) {
-//            username.setVisibility(View.INVISIBLE);
-//            scoreText.setVisibility(View.INVISIBLE);
-//            visitsText.setVisibility(View.INVISIBLE);
-//            editProfile.setVisibility(View.INVISIBLE);
-//            avatar.setVisibility(View.INVISIBLE);
-//            login.setVisibility(View.VISIBLE);
-//            signup.setVisibility(View.VISIBLE);
-//            logout.setVisibility(View.INVISIBLE);
-//            exercises.setVisibility(View.GONE);
-//        }
+        //TODO: add code for sending user stats to db. Maybe add it to every activities onDestroy too?
         recreate();
     }
 

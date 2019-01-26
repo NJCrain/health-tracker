@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.njcrain.android.healthtracker.R;
 
@@ -46,11 +47,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getToken() {
+        String username = ((EditText) findViewById(R.id.username)).getText().toString();
+        String password = ((EditText) findViewById(R.id.password)).getText().toString();
 
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-        RequestBody body = RequestBody.create(mediaType, "grant_type=password&username=john&password=123456&client_id=testjwtclientid&client_secret=XY7kmzoNzl100");
+        RequestBody body = RequestBody.create(mediaType, "grant_type=password&username=" + username + "&password=" + password + "&client_id=testjwtclientid&client_secret=XY7kmzoNzl100");
         Request request = new Request.Builder()
                 .url("https://nc-health-tracker-backend.herokuapp.com/oauth/token")
                 .post(body)
