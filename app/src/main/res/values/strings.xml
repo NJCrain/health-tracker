@@ -26,4 +26,8 @@
     <string name="clicker_exercise_score">Clicker Exercise Score: 0</string>
     <string name="home_page_visits">Home Page Visits: 1</string>
     <string name="username">username</string>
+    <string name="logout">Logout</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
 </resources>

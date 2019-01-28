@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,22 +46,31 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("userPrefs", 0);
 
-        if (!preferences.contains("username")) {
-            preferences.edit().putString("username", "username").apply();
-        }
-        if (!preferences.contains("homeVisits")) {
-            preferences.edit().putInt("homeVisits", 1).apply();
-        } else {
-            preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 1) + 1).apply();
-        }
-
         TextView username = findViewById(R.id.username_main);
         TextView scoreText = findViewById(R.id.scoreText);
         TextView visitsText = findViewById(R.id.visitsText);
-        username.setText(preferences.getString("username", ""));
-        scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
-        visitsText.setText("Home Page Visits: " + preferences.getInt("homeVisits", 1));
+        Button editProfile = findViewById(R.id.button7);
+        Button login = findViewById(R.id.login);
+        Button signup = findViewById(R.id.signup);
+        Button logout = findViewById(R.id.logout);
+        Button exercises = findViewById(R.id.button3);
 
+        if (preferences.contains("token")) {
+            username.setVisibility(View.VISIBLE);
+            scoreText.setVisibility(View.VISIBLE);
+            visitsText.setVisibility(View.VISIBLE);
+            editProfile.setVisibility(View.VISIBLE);
+            avatar.setVisibility(View.VISIBLE);
+            login.setVisibility(View.INVISIBLE);
+            signup.setVisibility(View.INVISIBLE);
+            logout.setVisibility(View.VISIBLE);
+            exercises.setVisibility(View.VISIBLE);
+        } else {
+            preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 0) + 1).apply();
+            username.setText(preferences.getString("username", ""));
+            scoreText.setText("Clicker Exercise Score: " + preferences.getInt("clickerScore", 0));
+            visitsText.setText("Home Page Visits: " + preferences.getInt("homeVisits", 0));
+        }
         displayAvatar();
     }
 
@@ -68,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 1) + 1).apply();
+        preferences.edit().putInt("homeVisits", preferences.getInt("homeVisits", 0) + 1).apply();
 
         TextView scoreText = findViewById(R.id.scoreText);
         TextView visitsText = findViewById(R.id.visitsText);
@@ -99,6 +109,12 @@ public class MainActivity extends AppCompatActivity {
     public void goToImageGalleryActivity(View v) {
         Intent goToImageGallery = new Intent(this, ImageGalleryActivity.class);
         startActivity(goToImageGallery);
+    }
+
+    //Runs when the "Login" button is clicked, sends the user to the ExerciseLogActivity
+    public void goToLoginActivity(View v) {
+        Intent goToLogin = new Intent(this, LoginActivity.class);
+        startActivityForResult(goToLogin, 13);
     }
 
     //The Intent/Pending Intent comes from https://gist.github.com/BrandonSmith/6679223
@@ -169,6 +185,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(goToProfile, 4);
     }
 
+    public void performLogout(View v) {
+        preferences.edit().remove("token").remove("clickerScore").apply();
+        //TODO: add code for sending user stats to db. Maybe add it to every activities onDestroy too?
+        recreate();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Case of user went to select a photo from saved images. Grab the proper path for that image, then save it in preferences and call displayAvatar().
@@ -176,6 +198,9 @@ public class MainActivity extends AppCompatActivity {
             displayAvatar();
             TextView username = findViewById(R.id.username_main);
             username.setText(preferences.getString("username", ""));
+        }
+        if (requestCode == 13 && resultCode == RESULT_OK) {
+            recreate();
         }
     }
 
